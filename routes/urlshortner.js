@@ -7,6 +7,7 @@ const url_shortner = express.Router();
 
 url_shortner.post("/", isValidURL, async (req, res) => {
   try {
+    console.log("req recieved")
     const existingUrl = await Url.findOne({
       where: { originalUrl: req.body.org_URL },
     });
