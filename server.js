@@ -1,7 +1,7 @@
 import app from "./index.js";
 import sequelize from "./db.js";
 
-const PORT = process.env.PORT || 5000;
+const PORT =  5000;
 
 try {
   await sequelize.authenticate();
