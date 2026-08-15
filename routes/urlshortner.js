@@ -7,7 +7,7 @@ const url_shortner = express.Router();
 
 url_shortner.post("/", isValidURL, async (req, res) => {
   try {
-    console.log("req recieved")
+    
     const existingUrl = await Url.findOne({
       where: { originalUrl: req.body.org_URL },
     });
@@ -29,8 +29,12 @@ url_shortner.post("/", isValidURL, async (req, res) => {
     });
     res.json({ short_URL: newUrl.shortend_url });
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+  console.error("SHORTENER ERROR:", error);
+
+  res.status(500).json({
+    error: error.message
+  });
+}
 });
 
 url_shortner.get("/:short_URL", async (req, res) => {
