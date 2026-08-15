@@ -2,7 +2,13 @@ import serverless from "serverless-http";
 import app from "../../index.js";
 import sequelize from "../../db.js";
 
-await sequelize.authenticate();
-await sequelize.sync();
+const dbReady = sequelize.authenticate()
+    .then(() => sequelize.sync());
 
-export const handler = serverless(app);
+const serverlessApp = serverless(app);
+
+export const handler = async (event, context) => {
+    await dbReady;
+
+    return serverlessApp(event, context);
+};
