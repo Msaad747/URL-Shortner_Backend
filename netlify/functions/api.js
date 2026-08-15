@@ -5,6 +5,4 @@ import sequelize from "../../db.js";
 await sequelize.authenticate();
 await sequelize.sync();
 
-export const handler = serverless(app,{
-  basePath: "/.netlify/functions/api",
-});
+export const handler = serverless(app);
